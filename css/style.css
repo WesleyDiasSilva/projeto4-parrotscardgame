@@ -32,7 +32,10 @@ h1{
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+  cursor: pointer;
 }
+
+
 
 .escondida{
   display: none;
