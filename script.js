@@ -1,4 +1,5 @@
 let acerto = 0;
+let cliques = 0;
 
 
 let quantidadeCartas = prompt('Por favor, digite aqui apenas a quantidade de cartas com que jogar! \nIMPORTANTE: Escolha de 4 a 14 cartas, e sempre números pares!');
@@ -72,16 +73,15 @@ const cartasPraJogo = [];
 
 for(let i = 0 ; i < quantidadeCartas; i++){
   cartasPraJogo.push(cartas[i]); 
-  
 }
 
 function comparador(){
   return Math.random() - 0.5;
 };
-
 cartasPraJogo.sort(comparador);
 
 let check = [];
+let pontos = 0;
 
 let game = document.querySelector('.game');
 let numCartas = quantidadeCartas / 2;
@@ -98,7 +98,6 @@ let numCartas = quantidadeCartas / 2;
       cartaMostra.classList.add('back'+(i+1));
       cartaMostra.id = i+1;
 
-      // cartaEscondida.classList.add('escondida')
       cartaEscondida.src = '/img/front.png';
       cartaEscondida.id = i+1;
       const classe = 'front'+(i+1);
@@ -112,9 +111,8 @@ let numCartas = quantidadeCartas / 2;
       const deck = document.querySelectorAll('.carta');
 
       function viraCarta(){
-
-        cliques += 1
-        
+        cliques = cliques+1
+        console.log(cliques)
         const back = document.querySelector('.back'+this.id);
 
         back.classList.remove('escondida');
@@ -124,10 +122,23 @@ let numCartas = quantidadeCartas / 2;
         front.classList.add('escondida');
 
         check.push({img: back.src, elemento: this});
-        console.log(check);
         if(check.length > 1)
           if(check[0].img == check[1].img){
             check = [];
+            pontos += 1;
+            if(pontos*2 === quantidadeCartas){
+              setTimeout(() => {
+                alert(`Parabéns, você venceu! Seu número de tentativas foi de: ${cliques/2}!`)
+              }, 1000);
+              setTimeout(() => {
+                let resposta = prompt('Deseja jogar novamente?')
+                if(resposta.toLowerCase() === 'sim'){
+                  location.reload()
+                }else{
+                  alert('Muito obrigado pelo jogo, volte quando quiser!')
+                }
+              }, 1500)
+            }
         }else{
           setTimeout(() => {
              check[0].elemento.childNodes[0].classList.add('escondida');
