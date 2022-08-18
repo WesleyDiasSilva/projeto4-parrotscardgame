@@ -124,12 +124,12 @@ let numCartas = quantidadeCartas / 2;
       carta.id = i+1;
       cartaMostra.src = cartasPraJogo[i].img;
       cartaMostra.classList.add('escondida');
-      cartaMostra.classList.add('back'+(i+1));
+      cartaMostra.classList.add('back');
       cartaMostra.id = i+1;
 
       cartaEscondida.src = '/img/front.png';
       cartaEscondida.id = i+1;
-      const classe = 'front'+(i+1);
+      const classe = 'front';
       cartaEscondida.classList.add(classe);
 
       game.appendChild(carta);
@@ -143,16 +143,18 @@ let numCartas = quantidadeCartas / 2;
         if(check.length < 2){
           cliques = cliques+1
         console.log(cliques)
-        const back = document.querySelector('.back'+this.id);
+        const back = this.childNodes[0];
+        console.log()
 
         back.classList.remove('escondida');
 
-        const front = document.querySelector('.front'+this.id);
+        const front = this.childNodes[1];
 
         front.classList.add('escondida');
 
         check.push({img: back.src, elemento: this});
         
+        if(check.length >1){
           if(check[0].img == check[1].img){
             check = [];
             pontos += 1;
@@ -161,7 +163,7 @@ let numCartas = quantidadeCartas / 2;
                 alert(`Parabéns, você venceu! \nSeu número de tentativas foi de: ${cliques/2}\nSeu tempo foi de: ${corrigiNumero(minutos) + ':'+corrigiNumero(segundos)}!`)
               }, 300);
               setTimeout(() => {
-                let resposta = prompt('Deseja jogar novamente?')
+                let resposta = prompt('Deseja jogar novamente? Digite "sim" caso queira jogar de novo!')
                 if(resposta.toLowerCase() === 'sim'){
                   location.reload()
                 }else{
@@ -179,7 +181,7 @@ let numCartas = quantidadeCartas / 2;
           }, 1000)
         }
         }
-        
+      }
       };
       
       // setInterval(() => {
