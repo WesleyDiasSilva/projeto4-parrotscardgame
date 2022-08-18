@@ -2,6 +2,13 @@
 
 body{
   background-color: #EEF9BF;
+  position: relative;
+}
+
+.timer{
+  position: absolute;
+  right: 30px;
+  top: 80px;
 }
 
 h1{
@@ -35,8 +42,6 @@ h1{
   cursor: pointer;
 }
 
-
-
 .escondida{
   display: none;
 }
@@ -46,7 +51,7 @@ h1{
   height: 100px;
 }
 
-@media (max-width: 500px){
+@media (max-width: 540px){
   .game{
     display: flex;
     flex-direction: column;
@@ -55,5 +60,9 @@ h1{
 
   .carta:last-child{
     margin-bottom: 30px;
+  }
+
+  .timer{
+    top: 140px;
   }
 }

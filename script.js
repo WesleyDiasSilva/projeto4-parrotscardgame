@@ -9,6 +9,35 @@ while(quantidadeCartas == null || quantidadeCartas < 4 || quantidadeCartas > 14 
   quantidadeCartas = prompt('Por favor, digite aqui a quantidade de cartas com que jogar! \nIMPORTANTE: Escolha de 4 a 14 cartas, e sempre números pares!')
 };
 
+const divTimer = document.querySelector('.timer')
+function timer(){
+  let segundos = '0'+0;
+  let minutos = 0;
+  let tempo = '00:'+segundos
+  divTimer.innerHTML = tempo
+  setInterval(() => {
+    if(segundos < 10){
+      tempo = '00:0'+segundos++
+      divTimer.innerHTML = tempo
+    }else{
+      tempo = '00:'+segundos++
+      divTimer.innerHTML = tempo
+    }
+    if(segundos == 60){
+      minutos++;
+      if(minutos < 10){
+        divTimer.innerHTML = '0'+minutos+':'+segundos
+      }
+      segundos = 0;
+      segundos++
+      
+    }
+    
+    console.log(segundos)
+  },1000)
+}
+timer()
+
 const cartas = [
   {
     id: 1,
@@ -122,14 +151,14 @@ let numCartas = quantidadeCartas / 2;
         front.classList.add('escondida');
 
         check.push({img: back.src, elemento: this});
-        if(check.length > 1)
+        
           if(check[0].img == check[1].img){
             check = [];
             pontos += 1;
             if(pontos*2 === quantidadeCartas){
               setTimeout(() => {
                 alert(`Parabéns, você venceu! Seu número de tentativas foi de: ${cliques/2}!`)
-              }, 1000);
+              }, 300);
               setTimeout(() => {
                 let resposta = prompt('Deseja jogar novamente?')
                 if(resposta.toLowerCase() === 'sim'){
@@ -150,11 +179,11 @@ let numCartas = quantidadeCartas / 2;
         }
       };
       
-      setInterval(() => {
-        if(acerto == quantidadeCartas){
-          console.log(acerto)
-        }
-      },1000)
+      // setInterval(() => {
+      //   if(acerto == quantidadeCartas){
+      //     console.log('teste')
+      //   }
+      // },1000)
 
       deck.forEach( item => {
         item.addEventListener('click', viraCarta)
