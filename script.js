@@ -10,33 +10,33 @@ while(quantidadeCartas == null || quantidadeCartas < 4 || quantidadeCartas > 14 
 };
 
 const divTimer = document.querySelector('.timer')
-function timer(){
-  let segundos = '0'+0;
-  let minutos = 0;
-  let tempo = '00:'+segundos
-  divTimer.innerHTML = tempo
-  setInterval(() => {
-    if(segundos < 10){
-      tempo = '00:0'+segundos++
-      divTimer.innerHTML = tempo
-    }else{
-      tempo = '00:'+segundos++
-      divTimer.innerHTML = tempo
-    }
-    if(segundos == 60){
-      minutos++;
-      if(minutos < 10){
-        divTimer.innerHTML = '0'+minutos+':'+segundos
-      }
-      segundos = 0;
-      segundos++
-      
-    }
-    
-    console.log(segundos)
-  },1000)
+
+let segundos = 0
+let minutos = 0
+
+function corrigiNumero(numero){
+  if(numero < 10){
+    return '0'+numero;
+  }else{
+    return numero;
+  }
 }
-timer()
+
+function startTimer(){
+  setInterval(contador, 1000)
+}
+
+startTimer()
+
+function contador(){
+  segundos++
+  if(segundos == 60){
+    minutos++
+    segundos = 0
+  }
+  divTimer.innerHTML = corrigiNumero(minutos) + ':'+corrigiNumero(segundos)
+}
+
 
 const cartas = [
   {
@@ -140,7 +140,8 @@ let numCartas = quantidadeCartas / 2;
       const deck = document.querySelectorAll('.carta');
 
       function viraCarta(){
-        cliques = cliques+1
+        if(check.length < 2){
+          cliques = cliques+1
         console.log(cliques)
         const back = document.querySelector('.back'+this.id);
 
@@ -157,7 +158,7 @@ let numCartas = quantidadeCartas / 2;
             pontos += 1;
             if(pontos*2 === quantidadeCartas){
               setTimeout(() => {
-                alert(`Parabéns, você venceu! Seu número de tentativas foi de: ${cliques/2}!`)
+                alert(`Parabéns, você venceu! \nSeu número de tentativas foi de: ${cliques/2}\nSeu tempo foi de: ${corrigiNumero(minutos) + ':'+corrigiNumero(segundos)}!`)
               }, 300);
               setTimeout(() => {
                 let resposta = prompt('Deseja jogar novamente?')
@@ -177,6 +178,8 @@ let numCartas = quantidadeCartas / 2;
             check = [];
           }, 1000)
         }
+        }
+        
       };
       
       // setInterval(() => {
