@@ -142,9 +142,7 @@ let numCartas = quantidadeCartas / 2;
       function viraCarta(){
         if(check.length < 2){
           cliques = cliques+1
-        console.log(cliques)
         const back = this.childNodes[0];
-        console.log()
 
         back.classList.remove('escondida');
 
@@ -152,7 +150,19 @@ let numCartas = quantidadeCartas / 2;
 
         front.classList.add('escondida');
 
-        check.push({img: back.src, elemento: this});
+        if(check.length > 0){
+          if(check[0].elemento === this){
+
+          }else{
+  
+            check.push({img: back.src, elemento: this});
+            console.log(check)
+          }
+        }else{
+          check.push({img: back.src, elemento: this});
+            console.log(check)
+        }
+        
         
         if(check.length >1){
           if(check[0].img == check[1].img){
