@@ -51,7 +51,6 @@ h1{
   justify-content: space-evenly;
 }
 
-
 #game2{
   display: flex;
   flex-wrap: wrap;
@@ -71,7 +70,6 @@ h1{
   justify-content: center;
   border-radius: 5px;
   cursor: pointer;
- 
 }
 
 .escondida{
@@ -96,5 +94,15 @@ h1{
 
   h1{
     font-size: 36px;
+  }
+
+  .temporizador{
+    position: fixed;
+    right: 0;
+    top: 90px;
+  }
+
+  #game2{
+    margin-top: -30px;
   }
 }

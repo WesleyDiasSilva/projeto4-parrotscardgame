@@ -207,13 +207,10 @@ if(quantidadeCartas >= 12){
         if(check.length < 2){
           cliques = cliques+1
         const back = this.childNodes[0];
-
-        
-        back.classList.remove('escondida');
-
         const front = this.childNodes[1];
 
-        front.classList.add('escondida');
+          back.classList.remove('escondida');
+          front.classList.add('escondida');
 
         if(check.length > 0){
           if(check[0].elemento === this){
