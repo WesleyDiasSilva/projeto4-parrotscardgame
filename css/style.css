@@ -22,6 +22,7 @@ body{
   justify-content: center;
   align-items: center;
   border-radius: 5px 0px 0px 20px;
+  box-shadow: 0px 5px 20px;
 }
 
 h1{
@@ -35,17 +36,26 @@ h1{
 
 .container{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
 }
 
-.game{
+#game1{
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
   margin-top: 50px;
+  justify-content: space-evenly;
+}
+
+
+#game2{
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
   justify-content: space-evenly;
 }
 
@@ -61,6 +71,7 @@ h1{
   justify-content: center;
   border-radius: 5px;
   cursor: pointer;
+ 
 }
 
 .escondida{

@@ -22,11 +22,12 @@ function corrigiNumero(numero){
   }
 }
 
+let idContador;
 function startTimer(){
-  setInterval(contador, 1000)
+  idContador = setInterval(contador, 1000)
 }
 
-startTimer()
+
 
 function contador(){
   segundos++
@@ -112,10 +113,11 @@ cartasPraJogo.sort(comparador);
 let check = [];
 let pontos = 0;
 
-let game = document.querySelector('.game');
+let game1 = document.getElementById('game1');
+let game2 = document.getElementById('game2');
 let numCartas = quantidadeCartas / 2;
 
-    for(let i = 0 ; i < cartasPraJogo.length; i++){
+    for(let i = 0 ; i < cartasPraJogo.length / 2; i++){
       let carta = document.createElement('li');
       let cartaEscondida = document.createElement('img');
       let cartaMostra = document.createElement('img');
@@ -123,19 +125,81 @@ let numCartas = quantidadeCartas / 2;
       carta.classList.add('carta');
       carta.id = i+1;
       cartaMostra.src = cartasPraJogo[i].img;
-      cartaMostra.classList.add('escondida');
+      // cartaMostra.classList.add('escondida');
       cartaMostra.classList.add('back');
       cartaMostra.id = i+1;
 
       cartaEscondida.src = '/img/front.png';
       cartaEscondida.id = i+1;
-      const classe = 'front';
-      cartaEscondida.classList.add(classe);
+      cartaEscondida.classList.add('front');
+      cartaEscondida.classList.add('escondida');
 
-      game.appendChild(carta);
+
+      game1.appendChild(carta);
       carta.appendChild(cartaMostra);
       carta.appendChild(cartaEscondida);
   };
+
+  for(let i = cartasPraJogo.length / 2 ; i < cartasPraJogo.length ; i++){
+    let carta = document.createElement('li');
+    let cartaEscondida = document.createElement('img');
+    let cartaMostra = document.createElement('img');
+
+    carta.classList.add('carta');
+    carta.id = i+1;
+    cartaMostra.src = cartasPraJogo[i].img;
+    // cartaMostra.classList.add('escondida');
+    cartaMostra.classList.add('back');
+    cartaMostra.id = i+1;
+
+    cartaEscondida.src = '/img/front.png';
+    cartaEscondida.id = i+1;
+    cartaEscondida.classList.add('front');
+    cartaEscondida.classList.add('escondida')
+
+
+    game2.appendChild(carta);
+    carta.appendChild(cartaMostra);
+    carta.appendChild(cartaEscondida);
+};
+
+let todasBack = document.querySelectorAll('.back')
+let todasFront = document.querySelectorAll('.front')
+
+if(quantidadeCartas >= 12){
+  setTimeout(()=> {
+    todasBack.forEach((item) => {
+      item.classList.add('escondida')
+    });
+    todasFront.forEach((item) => {
+      item.classList.remove('escondida')
+    })
+    startTimer();
+  }, 3000)
+}else if(quantidadeCartas >= 8){
+  setTimeout(()=> {
+    todasBack.forEach((item) => {
+      item.classList.add('escondida')
+    });
+    todasFront.forEach((item) => {
+      item.classList.remove('escondida')
+    })
+    startTimer();
+  }, 2000)
+} else {
+  setTimeout(()=> {
+    todasBack.forEach((item) => {
+      item.classList.add('escondida')
+    });
+    todasFront.forEach((item) => {
+      item.classList.remove('escondida')
+    })
+    startTimer();
+  }, 1000)
+}
+
+
+
 
       const deck = document.querySelectorAll('.carta');
 
@@ -144,6 +208,7 @@ let numCartas = quantidadeCartas / 2;
           cliques = cliques+1
         const back = this.childNodes[0];
 
+        
         back.classList.remove('escondida');
 
         const front = this.childNodes[1];
@@ -156,11 +221,11 @@ let numCartas = quantidadeCartas / 2;
           }else{
   
             check.push({img: back.src, elemento: this});
-            console.log(check)
+          
           }
         }else{
           check.push({img: back.src, elemento: this});
-            console.log(check)
+     
         }
         
         
@@ -170,16 +235,22 @@ let numCartas = quantidadeCartas / 2;
             pontos += 1;
             if(pontos*2 === quantidadeCartas){
               setTimeout(() => {
-                alert(`Parabéns, você venceu! \nSeu número de tentativas foi de: ${cliques/2}\nSeu tempo foi de: ${corrigiNumero(minutos) + ':'+corrigiNumero(segundos)}!`)
+                alert(`Parabéns, você venceu! \nSeu número de tentativas foi de: ${cliques/2}\nSeu tempo foi de: ${corrigiNumero(minutos) + ':'+corrigiNumero(segundos)}!`);
+                clearInterval(idContador);
               }, 300);
               setTimeout(() => {
-                let resposta = prompt('Deseja jogar novamente? Digite "sim" caso queira jogar de novo!')
+                let resposta = prompt('Deseja jogar novamente? Digite "sim" caso queira jogar de novo, e "não" caso queira encerrar!')
+                resposta = resposta.toLowerCase();
                 if(resposta.toLowerCase() === 'sim'){
                   location.reload()
-                }else{
+                }else if(resposta.toLowerCase === 'não'){
                   alert('Muito obrigado pelo jogo, volte quando quiser!')
+                }else{
+                  while(resposta.toLowerCase() === 'sim' || resposta.toLowerCase() === 'não'){
+                    resposta = prompt('Deseja jogar novamente? Digite "sim" caso queira jogar de novo, e "não" caso queira encerrar!')
+                  }
                 }
-              }, 1500)
+              }, 1000)
             }
         }else{
           setTimeout(() => {
@@ -193,12 +264,6 @@ let numCartas = quantidadeCartas / 2;
         }
       }
       };
-      
-      // setInterval(() => {
-      //   if(acerto == quantidadeCartas){
-      //     console.log('teste')
-      //   }
-      // },1000)
 
       deck.forEach( item => {
         item.addEventListener('click', viraCarta)
