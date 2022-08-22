@@ -216,13 +216,10 @@ if(quantidadeCartas >= 12){
           if(check[0].elemento === this){
 
           }else{
-  
             check.push({img: back.src, elemento: this});
-          
           }
         }else{
           check.push({img: back.src, elemento: this});
-     
         }
         
         
@@ -236,15 +233,32 @@ if(quantidadeCartas >= 12){
                 clearInterval(idContador);
               }, 300);
               setTimeout(() => {
+
+
+
+
                 let resposta = prompt('Deseja jogar novamente? Digite "sim" caso queira jogar de novo, e "não" caso queira encerrar!')
                 resposta = resposta.toLowerCase();
+                console.log(resposta)
                 if(resposta.toLowerCase() === 'sim'){
                   location.reload()
-                }else if(resposta.toLowerCase === 'não'){
+                }else if(resposta.toLowerCase() === 'não'){
                   alert('Muito obrigado pelo jogo, volte quando quiser!')
                 }else{
-                  while(resposta.toLowerCase() === 'sim' || resposta.toLowerCase() === 'não'){
-                    resposta = prompt('Deseja jogar novamente? Digite "sim" caso queira jogar de novo, e "não" caso queira encerrar!')
+                  console.log('teste while')
+                  let x = true
+                  while(x === true){
+                    console.log('entrou no while')
+                    if(resposta.toLowerCase() === 'sim' || resposta.toLowerCase() === 'não'){
+                      break;
+                    }else{
+                      resposta = prompt('Deseja jogar novamente? Digite "sim" caso queira jogar de novo, e "não" caso queira encerrar!')
+                    }
+                  }
+                  if(resposta.toLowerCase() === 'sim'){
+                    location.reload()
+                  }else if(resposta.toLowerCase() === 'não'){
+                    alert('Muito obrigado pelo jogo, volte quando quiser!')
                   }
                 }
               }, 1000)
